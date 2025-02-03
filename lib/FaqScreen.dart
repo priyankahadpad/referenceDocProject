@@ -1,9 +1,9 @@
-
 import 'package:demoproject/Appbar/appbar.dart';
 import 'package:demoproject/Commons/SizedBox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:getwidget/components/accordion/gf_accordion.dart';
 
 class FAQScreen extends StatefulWidget {
   const FAQScreen({super.key});
@@ -25,7 +25,8 @@ class _FAQScreenState extends State<FAQScreen> {
   void toggleExpansion(int index) {
     isExpandedList[index] = !isExpandedList[index];
   }
-List<Map<String, String>> Faqcard = [
+
+  List<Map<String, String>> Faqcard = [
     {
       'title': 'How to create new account?',
       'content':
@@ -55,47 +56,49 @@ List<Map<String, String>> Faqcard = [
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffFFFFFF),
-      appBar: CommonAppbar(
-        titleTxt: 'Frequently Asked Questions',
-        // calendarWidget: false,
-        // preferredSize: Size.fromHeight(50.h),
-      ),
-      body:  Padding(
-            padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 16.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: Faqcard.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Obx(
-                        () {
-                          return customExpandableItem(
-                            isExpanded: isExpandedList[index],
-                            title: Faqcard[index]['title'] ?? '',
-          
-                            content: Faqcard[index]['content'] ?? '',
-          
-                            toggleExpansion: () => toggleExpansion(index),
-                          );
-                        },
+        backgroundColor: Color(0xffFFFFFF),
+        appBar: CommonAppbar(
+          titleTxt: 'Frequently Asked Questions',
+          // calendarWidget: false,
+          // preferredSize: Size.fromHeight(50.h),
+        ),
+        body: Padding(
+          padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 16.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: Faqcard.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return
+                        // GFAccordion(
+                        //   title: 'First Accordion',
+                        //   content: 'This is the content of the first accordion.',
+                        //   expandedTitleBackgroundColor:
+                        //       Colors.blue, // Customization
+                        //   collapsedIcon: Icon(Icons.arrow_drop_down),
+                        //   expandedIcon: Icon(Icons.arrow_drop_up),
+                        // );
+
+                        Obx(() {
+                      return customExpandableItem(
+                        isExpanded: isExpandedList[index],
+                        title: Faqcard[index]['title'] ?? '',
+                        content: Faqcard[index]['content'] ?? '',
+                        toggleExpansion: () => toggleExpansion(index),
                       );
-                    },
-                  ),
+                    });
+                  },
                 ),
-              ],
-            ),
-          ));
-        
-      
+              ),
+            ],
+          ),
+        ));
   }
 
-
-
- Widget customExpandableItem({
+  Widget customExpandableItem({
     required bool isExpanded,
     required String title,
     required String content,
@@ -111,7 +114,7 @@ List<Map<String, String>> Faqcard = [
             //     isExpanded ? null : Border.all(color: const Color(0xffCCCCCC)),
             color: isExpanded ? const Color(0xFF3192D8) : Colors.white,
             borderRadius: BorderRadius.circular(8.r),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 offset: Offset(0.0, 4.0),
                 blurRadius: 10.0,

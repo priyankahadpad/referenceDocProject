@@ -14,11 +14,10 @@ class _CommonTabBarState extends State<CommonTabBar> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-
       child: DefaultTabController(
         length: 2,
         child: Scaffold(
-              drawer: Container(width: 320.w, child: SideMenu()),
+          drawer: Container(width: 320.w, child: SideMenu()),
           resizeToAvoidBottomInset: true,
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -167,5 +166,34 @@ class MyTabBar extends StatelessWidget {
             ),
           ]),
     );
+  }
+}
+
+class CommonTabBarreg extends StatelessWidget {
+  // Set the desired height
+
+  final List<Tab> tabs;
+  const CommonTabBarreg({
+    super.key,
+    required this.tabs,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TabBar(
+        dividerColor: const Color(0xFFFFFFFF).withOpacity(0.07),
+        labelStyle: TextStyle(
+            fontSize: 14.sp,
+            color: const Color(0xFFFCFCFC),
+            fontWeight: FontWeight.w400,
+            fontFamily: 'Helvetica'),
+        indicatorSize: TabBarIndicatorSize.tab,
+        indicatorColor: const Color(0xFFD90B2E),
+        // labelColor: Colors.white,
+        indicatorWeight: 2.h,
+        dividerHeight: 2.h,
+        unselectedLabelColor: const Color(0xFFFCFCFC),
+        overlayColor: MaterialStateProperty.all(const Color(0xFFD90B2E)),
+        tabs: tabs);
   }
 }

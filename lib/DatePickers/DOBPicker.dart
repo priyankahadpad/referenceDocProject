@@ -8,6 +8,39 @@ class DateOfBirthPicker extends StatelessWidget {
   DateOfBirthPicker(this.dob);
   final dateFormat = DateFormat('dd MMMM yyyy');
 
+  Future<void> datePicker(
+    BuildContext context, TextEditingController controller) async {
+  final ThemeData customTheme = Theme.of(context).copyWith(
+      colorScheme: const ColorScheme.light(
+          primary: Color(0xFFD90B2E),
+          surfaceTint: Color(0xFF222935),
+          surface: Color(0xFF222935),
+          onPrimary: Colors.white,
+          onSurface: Colors.white,
+          onSecondary: Colors.white),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: const Color(0xFFD90B2E),
+        ),
+      ));
+  final DateTime? picked = await showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(1900),
+    lastDate: DateTime(2100),
+    builder: (BuildContext context, Widget? child) {
+      return Theme(
+        data: customTheme,
+        child: child!,
+      );
+    },
+  );
+
+  if (picked != null) {
+    controller.text = DateFormat('yyyy-MM-dd').format(picked);
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
